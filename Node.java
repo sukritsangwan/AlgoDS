@@ -17,6 +17,13 @@ public class Node {
 		left = null;
 		right = null;
 	}
-
+	
+	public void deleteChild(Node n) {
+		if(n == left)
+			left = null;
+		else if(n == right)
+			right = null;
+		n.parent = null;
+	}
 	
 }
