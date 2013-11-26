@@ -25,7 +25,7 @@ class Graph {
 		return vertices.get(0);
 	}
 	
-	private void unvisitAll() {
+	public void unvisitAll() {
 		for(Vertex v:vertices)
 			v.visited = false;
 	}
@@ -35,7 +35,7 @@ class Graph {
 			v.printVertex();
 	}
 	
-	private List<Vertex> visitedVertices() {
+	public List<Vertex> visitedVertices() {
 		List<Vertex> visited = new LinkedList<Vertex>();
 		for(Vertex v:vertices)
 			if(v.visited)
@@ -43,41 +43,13 @@ class Graph {
 		return visited;
 	}
 	
-	public Graph primsMST() {
-		this.unvisitAll();
-		Graph mst = new Graph();
-		
-		Vertex v = this.vertices.get(0);
-		mst.addVertex(v.data);
-		v.visited = true;
-		Edge minE = v.edges.get(0);
-		for(Edge e:v.edges)
-			if(e.weight < minE.weight)
-				minE = e;
-		mst.addVertex(minE.otherVertex(v).data);
-		mst.addEdge(v.data, minE.otherVertex(v).data, minE.weight);
-		minE.otherVertex(v).visited = true;
-		
-		while(mst.vertices.size() < this.vertices.size()) {
-			minE = null;
-			for(Vertex vert:this.visitedVertices()) {
-				for(Edge e:vert.edges) {
-					if(!e.otherVertex(vert).visited) {
-						if(null == minE || e.weight < minE.weight)
-							minE = e;
-					}
-				}
-			}
-			if(minE.vert1.visited)
-				v = minE.vert1;
-			else
-				v = minE.vert2;
-			mst.addVertex(minE.otherVertex(v).data);
-			mst.addEdge(v.data, minE.otherVertex(v).data, minE.weight);
-			minE.otherVertex(v).visited = true;
-		}
-		
-		return mst;
+	public boolean connectedVertices(int data1, int data2) {
+		Vertex v1 = getVertex(data1);
+		Vertex v2 = getVertex(data2);
+		for(Edge e : v1.edges)
+			if(e.otherVertex(v1) == v2)
+				return true;
+		return false;
 	}
 	
 }

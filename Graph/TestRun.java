@@ -16,6 +16,7 @@ public class TestRun {
 		g.addEdge(6, 7, 25);
 		g.printGraph();
 		System.out.println("Prim's MST");
-		g.primsMST().printGraph();
+		PrimsMST algo = new PrimsMST();
+		algo.getPrimsMST(g).printGraph();
 	}
 }
